@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="16G1036" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Coin" representedClassName="Coin" syncable="YES" codeGenerationType="class">
+        <attribute name="coinname" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="holdings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Holdings" inverseName="coin" inverseEntity="Holdings" syncable="YES"/>
+    </entity>
+    <entity name="Holdings" representedClassName="Holdings" syncable="YES" codeGenerationType="class">
+        <attribute name="coinname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="exchange" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="qty" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tradedate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="tradeprice" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tradetype" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="coin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Coin" inverseName="holdings" inverseEntity="Coin" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Coin" positionX="-243" positionY="-36" width="128" height="73"/>
+        <element name="Holdings" positionX="-47" positionY="38" width="128" height="178"/>
+    </elements>
+</model>

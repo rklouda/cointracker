@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="16G1036" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Coin" representedClassName="Coin" syncable="YES" codeGenerationType="class">
+        <attribute name="coinname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="coin" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="transaction" inverseEntity="Transaction" syncable="YES"/>
+    </entity>
+    <entity name="Transaction" representedClassName="Transaction" syncable="YES" codeGenerationType="class">
+        <attribute name="coinname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="exchange" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fee" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="qty" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="totalvalue" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tradedate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="tradeprice" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="transaction" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Coin" inverseName="coin" inverseEntity="Coin" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Coin" positionX="-144" positionY="24" width="128" height="88"/>
+        <element name="Transaction" positionX="126" positionY="126" width="128" height="195"/>
+    </elements>
+</model>
