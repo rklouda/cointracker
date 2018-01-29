@@ -13,10 +13,11 @@
 @interface CoinDetailTVC : UITableViewController
 {
     NSArray *temp3;
+      NSArray *animalSectionTitles;
 }
 @property (strong) NSMutableArray *companyarray;
 @property (weak, nonatomic) IBOutlet NSString *coin, *coinImageString;
-@property (weak, nonatomic) IBOutlet UILabel *coinLabel, *currentPrice, *totalCost;
+@property (weak, nonatomic) IBOutlet UILabel *coinLabel, *currentPrice, *totalCost, *costBasis, *taxType;
 @property (strong) NSManagedObject *coindb;
 
 @end

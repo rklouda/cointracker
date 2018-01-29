@@ -103,7 +103,7 @@
     NSLog(@"CompanyArray CDTVC : %@", self.companyarray);
    
 
-    
+    animalSectionTitles =  @[@"Buy", @"Sell"];
 
     
     [self.tableView reloadData];
@@ -125,13 +125,16 @@
 
 #pragma mark - Table view data source
 
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 1;
+//#warning Incomplete implementation, return the number of sections
+  return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
+//#warning Incomplete implementation, return the number of rows
+    
       return self.companyarray.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -146,90 +149,139 @@
     
 }
 
+
+
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     // 1. Dequeue the custom header cell
-    CoinHeaderTableViewCell* headerCell = [tableView dequeueReusableCellWithIdentifier:@"HeaderCell"];
+  CoinHeaderTableViewCell* headerCell = [tableView dequeueReusableCellWithIdentifier:@"HeaderCell"];
     
-    // 2. Set the various properties
-    headerCell.coinName.text =  [self.coindb valueForKey:@"coinname"];
-    
-    
-    NSString *urlReceived = [NSString stringWithFormat:@"https://www.cryptocompare.com/api/data/coinlist/"];
-    
-    NSURL *url = [NSURL URLWithString:urlReceived];
-    
-    NSError* error = nil;
-    NSString* text = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:&error];
-    NSData *myData = [text dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *BTCUSD = [NSJSONSerialization JSONObjectWithData:myData
-                                                           options:NSJSONReadingAllowFragments
-                                                             error:&error];
-    
-    
-    NSLog(@"BTCUSD: %@",[BTCUSD allKeys]);
-    
-    NSArray *temp2 = [BTCUSD valueForKey:@"Data"][[self.coindb valueForKey:@"coinname"] ];
-    
-    
-    NSLog(@"Array: %@", temp2);
-    NSLog(@"BTCUSD: %@%@", [BTCUSD valueForKey:@"BaseLinkUrl"],[BTCUSD valueForKey:@"Data"][[self.coindb valueForKey:@"coinname"]][@"ImageUrl"]);
-    
-    _coinImageString = [NSString stringWithFormat:@"%@%@", [BTCUSD valueForKey:@"BaseLinkUrl"],[BTCUSD valueForKey:@"Data"][[self.coindb valueForKey:@"coinname"]][@"ImageUrl"]];
-    
-    
-    NSLog(@"Image String: %@", _coinImageString);
-    
-    //  cell.imageView.image =  [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_coinImageString]]];
-    
-    headerCell.image.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_coinImageString]]];
-    
-    
-//headerCell.image.image = [UIImage imageWithData:[self.coindb valueForKey:@"image"]];
-    
-  //  [headerCell.title sizeToFit];
-    
-   //  headerCell.image.image = [UIImage imageWithData:[self.companyarray valueForKey:@"image"]];
-    
-//    headerCell.subtitle.text = @"$200.00";
-  //  [headerCell.subtitle sizeToFit];
- //   [headerCell.subtitle setTextAlignment:NSTextAlignmentRight];
-    
-    //*totalHoldings, *totalValue, *totalNetCost, *totalGain, *currentPrice;
-    
-    NSNumber *totHoldings= [self.companyarray valueForKeyPath:@"@sum.qty"];
-     NSNumber *totCost= [self.companyarray valueForKeyPath:@"@sum.totalvalue"]; //totalvalue at purchase time
-  //   NSNumber *totfee= [self.companyarray valueForKeyPath:@"@sum.fee"];
-    
-    
-    float totValue = ([totHoldings floatValue] * [temp3[0] floatValue]);
-   
-    float totGain = totValue - [totCost floatValue];
-    float totPercentGain = (totValue - [totCost floatValue])/[totCost floatValue] *100;
-    
-    
-    NSLog(@"SUM: %@", totHoldings);
-
-    headerCell.totalHoldings.text = [NSString stringWithFormat:@"%@", totHoldings];
-    headerCell.totalNetCost.text = [NSString stringWithFormat:@"%@", totCost];
+  
  
-    headerCell.totalValue.text =[NSString stringWithFormat:@"$%.2f", totValue];
+            // 2. Set the various properties
+            headerCell.coinName.text =  [self.coindb valueForKey:@"coinname"];
+            
+            
+            NSString *urlReceived = [NSString stringWithFormat:@"https://www.cryptocompare.com/api/data/coinlist/"];
+            
+            NSURL *url = [NSURL URLWithString:urlReceived];
+            
+            NSError* error = nil;
+            NSString* text = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:&error];
+            NSData *myData = [text dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *BTCUSD = [NSJSONSerialization JSONObjectWithData:myData
+                                                                   options:NSJSONReadingAllowFragments
+                                                                     error:&error];
+            
+            
+            NSLog(@"BTCUSD: %@",[BTCUSD allKeys]);
+            
+            NSArray *temp2 = [BTCUSD valueForKey:@"Data"][[self.coindb valueForKey:@"coinname"] ];
+            
+            
+            NSLog(@"Array: %@", temp2);
+            NSLog(@"BTCUSD: %@%@", [BTCUSD valueForKey:@"BaseLinkUrl"],[BTCUSD valueForKey:@"Data"][[self.coindb valueForKey:@"coinname"]][@"ImageUrl"]);
+            
+            _coinImageString = [NSString stringWithFormat:@"%@%@", [BTCUSD valueForKey:@"BaseLinkUrl"],[BTCUSD valueForKey:@"Data"][[self.coindb valueForKey:@"coinname"]][@"ImageUrl"]];
+            
+            
+            NSLog(@"Image String: %@", _coinImageString);
+            
+            //  cell.imageView.image =  [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_coinImageString]]];
+            
+            headerCell.image.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_coinImageString]]];
+            
+            
+            //headerCell.image.image = [UIImage imageWithData:[self.coindb valueForKey:@"image"]];
+            
+            //  [headerCell.title sizeToFit];
+            
+            //  headerCell.image.image = [UIImage imageWithData:[self.companyarray valueForKey:@"image"]];
+            
+            //    headerCell.subtitle.text = @"$200.00";
+            //  [headerCell.subtitle sizeToFit];
+            //   [headerCell.subtitle setTextAlignment:NSTextAlignmentRight];
+            
+            //totalHoldings, *totalValue, *totalNetCost, *totalGain, *currentPrice;
+            
+            NSNumber *totHoldingsf= [self.companyarray valueForKeyPath:@"@sum.qty"];
+            NSNumber *totCostf= [self.companyarray valueForKeyPath:@"@sum.totalvalue"]; //
+    
+  
+    
+    float totCost = fabs([totCostf floatValue]);
+    float totHoldings = fabs([totHoldingsf floatValue]);
+    /*
+    if (totCost > 0)
+    {
+        totCost = (0 - totCost);
+    }
+    else if (totCost < 0)
+        
+    {
+        // Since number is negative, lets try to
+        // minus minus the number and make it positive.
+        totCost = (0 - totCost);
+    }
+     */
 
     
-    headerCell.currentPrice.text = [NSString stringWithFormat:@"$%@", temp3[0]];
-    
-    if (totGain >= 0) {
-    headerCell.percentGain.textColor = [UIColor blackColor];
-    headerCell.totalGain.textColor = [UIColor blackColor];
-    }else
-    {
-        headerCell.percentGain.textColor = [UIColor redColor];
-        headerCell.totalGain.textColor = [UIColor redColor];
+    //totalvalue at purchase time
+            //   NSNumber *totfee= [self.companyarray valueForKeyPath:@"@sum.fee"];
+            
+            
+            float totValue = fabs((totHoldings * [temp3[0] floatValue]));
+            
+            float totGain = fabs(totValue) - totCost ;
+            float totPercentGain = (fabs(totValue) - totCost)/totCost *100;
+
+    /*
+    if (totHoldings< 0) {
+        
+        totHoldings = 0;
+        totCostf = 0;
+        totCost = 0;
+        totGain = 0;
+        totPercentGain = 0;
+        totValue = 0;
     }
+    */
     
-    headerCell.percentGain.text = [NSString stringWithFormat:@"%.2f%%", totPercentGain];
-    headerCell.totalGain.text = [NSString stringWithFormat:@"$%.2f", totGain];
+            NSLog(@"SUM: %f", totHoldings);
+            
+            headerCell.totalHoldings.text = [NSString stringWithFormat:@"%.2f", totHoldings];
+    headerCell.totalNetCost.text = [NSString stringWithFormat:@"%.2f", fabs(totCost)];
+            
+            headerCell.totalValue.text =[NSString stringWithFormat:@"$%.2f", totValue];
+            
+            
+            headerCell.currentPrice.text = [NSString stringWithFormat:@"$%@", temp3[0]];
+            
+            if (totGain >= 0) {
+                headerCell.percentGain.textColor = [UIColor blackColor];
+                headerCell.totalGain.textColor = [UIColor blackColor];
+                headerCell.percentGain.text = [NSString stringWithFormat:@"%.2f%%", fabs(totPercentGain)];
+                
+                headerCell.totalGain.text = [NSString stringWithFormat:@"$%.2f", fabs(totGain)];
+            }else
+            {
+                headerCell.percentGain.textColor = [UIColor redColor];
+                headerCell.totalGain.textColor = [UIColor redColor];
+                headerCell.percentGain.text = [NSString stringWithFormat:@"%.2f%%", totPercentGain];
+                
+                headerCell.totalGain.text = [NSString stringWithFormat:@"$%.2f", totGain];
+            }
+            
+          //  headerCell.percentGain.text = [NSString stringWithFormat:@"%.2f%%", totPercentGain];
     
+          //  headerCell.totalGain.text = [NSString stringWithFormat:@"$%.2f", totGain];
+
+    
+  return headerCell;
+   
+
+    
+
   //  NSManagedObject *device = _coindb;
     
     
@@ -239,9 +291,12 @@
 
     
     // 3. And return
-    return headerCell;
-}
 
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [SVProgressHUD dismiss];
+    
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   //  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
@@ -264,22 +319,68 @@
     
     [cell.type setText:[device valueForKey:@"currency"]];
     
-    float qty = [[device valueForKey:@"qty"] floatValue];
+[cell.qty setText:[NSString stringWithFormat:@"%.2f",fabs([[device valueForKey:@"qty"] floatValue])]];
+    
+     float qty = fabs([[device valueForKey:@"qty"] floatValue]);
+    float BTCtradeprice =[[device valueForKey:@"tradeprice"] floatValue];
+    float BTCcost = (BTCtradeprice*qty);
+    
+    float BTCcurrentPrice = [temp3[0] floatValue];
+    
+  
+    float profit;
+    float BTCgain;
+
+    
     
     if ([cell.type.text isEqualToString:@"Sell"]) {
         cell.qty.textColor = [UIColor redColor];
-  
+        // Now do number check.
+    /*    if (qty > 0)
+        {
+            qty = (0 - qty);
+        }
+        else if (qty < 0)
+        {
+            // Since number is negative, lets try to
+            // minus minus the number and make it positive.
+            qty = (0-qty);
+        }
+        */
+   
+      //  profit =BTCtradeprice - BTCcost;
+       
+        
+     profit = BTCtradeprice - fabs([[device valueForKey:@"totalvalue"] floatValue]);
+       
+        BTCgain = (profit/fabs([[device valueForKey:@"totalvalue"] floatValue])*100);
+        NSLog(@"trade Price: %f Total Value: %f", BTCtradeprice, [[device valueForKey:@"totalvalue"] floatValue]);
+     //  BTCgain = (profit/BTCcost)*100;
+        
+         [cell.totalValue setText:[NSString stringWithFormat:@"$%.2f", fabs([[device valueForKey:@"totalvalue"]floatValue])
+                                   ]];
+        
+        
+        cell.costBasis.text = @"Cost Basis";
+        
+        
     } else
     {
         cell.qty.textColor = [UIColor blackColor];
-        
+        profit =(qty*BTCcurrentPrice) - BTCcost;
+        BTCgain = (profit/BTCcost)*100;
+         [cell.totalValue setText:[NSString stringWithFormat:@"$%.2f", fabs([[device valueForKey:@"totalvalue"]floatValue])]];
+        cell.costBasis.text = @"Net Cost";
     }
     
-    [cell.qty setText:[NSString stringWithFormat:@"%@",[device valueForKey:@"qty"]]];
+    
 
+    
+
+[cell.taxType setText:[NSString stringWithFormat:@"%@",[device valueForKey:@"taxtype"]]];
      [cell.tradePrice setText:[NSString stringWithFormat:@"$%@",[device valueForKey:@"tradeprice"]]];
      [cell.currentPrice setText:[NSString stringWithFormat:@"$%@",temp3[0]]];
-    [cell.totalValue setText:[NSString stringWithFormat:@"$%@", [device valueForKey:@"totalvalue"]]];
+   
    // float fee = [[device valueForKey:@"fee"] floatValue];
 
     NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
@@ -288,18 +389,22 @@
     
    
 
-    float BTCtradeprice =[[device valueForKey:@"tradeprice"] floatValue];
-    float BTCcost = (BTCtradeprice*qty);
+
     
-    float BTCcurrentPrice = [temp3[0] floatValue];
-    float profit =(qty*BTCcurrentPrice) - BTCcost;
     
-    float BTCgain = (profit/BTCcost)*100;
+    
+  
+    
+    
+    
+   
     NSLog(@"Trade Cost: %.2f profit: %.2f Qty: %.2f", BTCcost, profit, BTCcurrentPrice);
     
  //   cell.totalCost.text = [NSString stringWithFormat:@"%.2f", BTCcost ];
     cell.gain.text = [NSString stringWithFormat:@"$%.2f",profit ];
+    
     cell.gainpercent.text = [NSString stringWithFormat:@"%.2f%%", BTCgain ];
+    
     
  //   cell.image.image = [UIImage imageWithData:[device valueForKey:@"image"]];
     

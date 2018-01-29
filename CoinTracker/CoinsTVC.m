@@ -13,12 +13,17 @@
 #import "MainCustomTVCell.h"
 #import <CoreData/CoreData.h>
 #import "CoinHeaderTableViewCell.h"
+#import "SVProgressHUD.h"
 
 @interface CoinsTVC ()
 
 @end
 
 @implementation CoinsTVC
+
+
+
+//////TEST FOR INTERNET CONNECTION
 
 - (NSManagedObjectContext *)managedObjectContext
 {
@@ -27,6 +32,7 @@
     if ([delegate performSelector:@selector(managedObjectContext)]) {
         context = [delegate managedObjectContext];
     }
+   
     return context;
 }
 
@@ -48,7 +54,7 @@
  //   self.navigationItem.rightBarButtonItem = addButton;
     
     
-    
+    //  [SVProgressHUD show];
  
     
     
@@ -116,13 +122,17 @@
                           action:@selector(preGetTheCoins)
                 forControlEvents:UIControlEventValueChanged];
     
-
+  [SVProgressHUD show];
   //  [self calculateGains];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+  [SVProgressHUD show];
+    
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
+ [SVProgressHUD show];
     [super viewDidAppear:animated];
      totalMarket = 0.0;
         totalGainRK = 0.0;
@@ -156,9 +166,15 @@
     NSError* error = nil;
     NSArray *results = [managedObjectContext executeFetchRequest:fetchRequest
                                                            error:&error];
+    if (error) {
+        [SVProgressHUD dismiss];
+          } else
+        {
+        
+          }
     
     NSLog(@"RESULT: %@", results);
-    
+        [SVProgressHUD dismiss];
     self.companyarray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     
 
@@ -184,13 +200,12 @@
  //   self.companyarray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     
  //   NSLog(@"CompanyName: %@", self.companyarray);
- 
+
+    
     [self.tableView reloadData];
     NSLog(@"Company Array for prices:%@", self.companyarray);
     
-
-    
-    
+ 
  
 }
 
@@ -408,7 +423,7 @@
     [self.tableView reloadData];
     
     [self.refreshControl endRefreshing];
-    
+     [SVProgressHUD dismiss];
     
     
 }
@@ -504,8 +519,7 @@
  //  MainCustomTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
   CoinHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     NSManagedObject *device = [self.companyarray objectAtIndex:indexPath.row];
-    
-    
+   
     NSString *tempURL = [NSString stringWithFormat:@"https://min-api.cryptocompare.com/data/price?fsym=%@&tsyms=USD",  [device valueForKey:@"coinname"]];
     
     NSURL *url2 = [NSURL URLWithString:tempURL];
@@ -828,7 +842,6 @@
         
       CoinDetailTVC *destViewController = segue.destinationViewController;
       destViewController.coindb = selectedDevice;
-        
         
         
       //  UINavigationController *nav = [segue destinationViewController];

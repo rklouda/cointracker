@@ -11,6 +11,7 @@
 #import <CoreData/CoreData.h>
 #import "addCoinTCV.h"
 #import "RadioButtonCell.h"
+#import "SVProgressHUD.h"
 
 @interface AddTransactionTVC : UITableViewController <UITextFieldDelegate>
 {
@@ -18,10 +19,10 @@
     RadioButtonCell *cell;
     DLRadioButton *radioButton;
     DLRadioButton *firstRadioButton;
-      UIDatePicker *datePicker;
+      UIDatePicker *datePicker, *datePicker2;
     
 }
-@property (weak, nonatomic) IBOutlet UILabel *currentPrice, *totalValue;
+@property (weak, nonatomic) IBOutlet UILabel *currentPrice, *totalValue, *taxType;
 //@property (weak, nonatomic) IBOutlet NSString *coin;
 
 @property (strong, nonatomic) IBOutlet UITextField  *company;
@@ -33,8 +34,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *coinImage;
 @property (weak, nonatomic) IBOutlet UIView *radioView;
  @property (strong, nonatomic) UITableViewCell *radioButtonCell;
-@property (strong, nonatomic) IBOutlet UITextField *tradePrice, *qty, *fee;
-@property (weak, nonatomic) IBOutlet UITextField *dateSelectionTextField;
+@property (strong, nonatomic) IBOutlet UITextField *tradePrice, *qty, *fee, *totalCostBasis;
+@property (weak, nonatomic) IBOutlet UITextField *dateSelectionTextField, *dateSelectionTextField2;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *btnSave;
 
 - (IBAction)btnSave:(id)sender;

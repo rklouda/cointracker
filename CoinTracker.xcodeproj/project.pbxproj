@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB07D87D2019920E000A50C3 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB07D8712019920E000A50C3 /* LICENSE.txt */; };
+		BB07D87E2019920E000A50C3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BB07D8722019920E000A50C3 /* README.md */; };
+		BB07D87F2019920E000A50C3 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB07D8752019920E000A50C3 /* SVIndefiniteAnimatedView.m */; };
+		BB07D8802019920E000A50C3 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB07D8772019920E000A50C3 /* SVProgressAnimatedView.m */; };
+		BB07D8812019920E000A50C3 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BB07D8782019920E000A50C3 /* SVProgressHUD.bundle */; };
+		BB07D8822019920E000A50C3 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BB07D87A2019920E000A50C3 /* SVProgressHUD.m */; };
+		BB07D8832019920E000A50C3 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BB07D87C2019920E000A50C3 /* SVRadialGradientLayer.m */; };
 		BB0B7024200A7C24001C1FCF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0B7023200A7C24001C1FCF /* AppDelegate.m */; };
 		BB0B7027200A7C24001C1FCF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0B7026200A7C24001C1FCF /* ViewController.m */; };
 		BB0B702A200A7C24001C1FCF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB0B7028200A7C24001C1FCF /* Main.storyboard */; };
@@ -50,6 +57,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB07D8712019920E000A50C3 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		BB07D8722019920E000A50C3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		BB07D8742019920E000A50C3 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		BB07D8752019920E000A50C3 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		BB07D8762019920E000A50C3 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		BB07D8772019920E000A50C3 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		BB07D8782019920E000A50C3 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		BB07D8792019920E000A50C3 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		BB07D87A2019920E000A50C3 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		BB07D87B2019920E000A50C3 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		BB07D87C2019920E000A50C3 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		BB0B701F200A7C24001C1FCF /* CoinTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0B7022200A7C24001C1FCF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BB0B7023200A7C24001C1FCF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -123,6 +141,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB07D8702019920E000A50C3 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				BB07D8712019920E000A50C3 /* LICENSE.txt */,
+				BB07D8722019920E000A50C3 /* README.md */,
+				BB07D8732019920E000A50C3 /* SVProgressHUD */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		BB07D8732019920E000A50C3 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				BB07D8742019920E000A50C3 /* SVIndefiniteAnimatedView.h */,
+				BB07D8752019920E000A50C3 /* SVIndefiniteAnimatedView.m */,
+				BB07D8762019920E000A50C3 /* SVProgressAnimatedView.h */,
+				BB07D8772019920E000A50C3 /* SVProgressAnimatedView.m */,
+				BB07D8782019920E000A50C3 /* SVProgressHUD.bundle */,
+				BB07D8792019920E000A50C3 /* SVProgressHUD.h */,
+				BB07D87A2019920E000A50C3 /* SVProgressHUD.m */,
+				BB07D87B2019920E000A50C3 /* SVRadialGradientLayer.h */,
+				BB07D87C2019920E000A50C3 /* SVRadialGradientLayer.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		BB0B7016200A7C24001C1FCF = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +217,7 @@
 				BB26A09C200D8F740070AF16 /* AddTransactionTVC.m */,
 				BB8E3C672012785200C69DF1 /* DLRadioButton.h */,
 				BB8E3C682012785200C69DF1 /* DLRadioButton.m */,
+				BB07D8702019920E000A50C3 /* SVProgressHUD */,
 				BB0B702B200A7C24001C1FCF /* Assets.xcassets */,
 				BB0B702D200A7C24001C1FCF /* LaunchScreen.storyboard */,
 				BB0B7030200A7C24001C1FCF /* Info.plist */,
@@ -317,7 +362,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB07D87D2019920E000A50C3 /* LICENSE.txt in Resources */,
+				BB07D8812019920E000A50C3 /* SVProgressHUD.bundle in Resources */,
 				BB0B702F200A7C24001C1FCF /* LaunchScreen.storyboard in Resources */,
+				BB07D87E2019920E000A50C3 /* README.md in Resources */,
 				BB0B702C200A7C24001C1FCF /* Assets.xcassets in Resources */,
 				BB0B702A200A7C24001C1FCF /* Main.storyboard in Resources */,
 			);
@@ -345,10 +393,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB2C70FC200CDC8E00781F94 /* CoinDetailViewController.m in Sources */,
+				BB07D8832019920E000A50C3 /* SVRadialGradientLayer.m in Sources */,
 				BB2C7102200CEEDF00781F94 /* CoinHeaderTableViewCell.m in Sources */,
 				BB0B705A200BEAA7001C1FCF /* addCoinTCV.m in Sources */,
 				BB26A09A200D76EF0070AF16 /* MainCustomTVCell.m in Sources */,
 				BB26A097200D5A230070AF16 /* MainHeaderTableViewCell.m in Sources */,
+				BB07D8822019920E000A50C3 /* SVProgressHUD.m in Sources */,
+				BB07D87F2019920E000A50C3 /* SVIndefiniteAnimatedView.m in Sources */,
 				BB0B7027200A7C24001C1FCF /* ViewController.m in Sources */,
 				BB0B7032200A7C24001C1FCF /* main.m in Sources */,
 				BB2C70FF200CE3D400781F94 /* CoinDetailTVC.m in Sources */,
@@ -358,6 +409,7 @@
 				BB0B7024200A7C24001C1FCF /* AppDelegate.m in Sources */,
 				BB8E3C3420126C6000C69DF1 /* RadioButtonCell.m in Sources */,
 				BB26A09D200D8F740070AF16 /* AddTransactionTVC.m in Sources */,
+				BB07D8802019920E000A50C3 /* SVProgressAnimatedView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

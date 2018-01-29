@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface addCoinTCV : UITableViewController
+@interface addCoinTCV : UITableViewController <UISearchBarDelegate, UISearchResultsUpdating>
 {
      NSInteger coinPrice;
     NSDictionary *coins;
@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet NSString *coinImageString;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *update;
 @property (strong) NSManagedObject *coindb;
-
+@property (weak, nonatomic) IBOutlet UIImageView *coinImage;
+@property (strong, nonatomic) UISearchController *searchController;
+@property (nonatomic, readonly) NSArray *searchResults;
 
 @end

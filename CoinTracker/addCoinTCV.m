@@ -8,6 +8,7 @@
 
 #import "addCoinTCV.h"
 #import "AddTransactionTVC.h"
+#import "SVProgressHUD.h"
 
 @interface addCoinTCV ()
 
@@ -15,6 +16,8 @@
 
 
 @implementation addCoinTCV
+    BOOL searchEnabled;
+
 
 - (NSManagedObjectContext *)managedObjectContext
 {
@@ -26,9 +29,26 @@
     return context;
 }
 
-
+-(void)viewWillAppear:(BOOL)animated{
+    [SVProgressHUD show];
+    searchEnabled = NO;
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.delegate = self;
+  
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.definesPresentationContext = YES;
+    
+     _searchResults = [[NSMutableArray alloc] init];
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -45,31 +65,51 @@
                             action:@selector(update:)
                   forControlEvents:UIControlEventValueChanged];
     
-    context = [self managedObjectContext];
-    
-    newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Coin" inManagedObjectContext:context];
+ [SVProgressHUD show];
     
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+//    context = [self managedObjectContext];
+    
+ //   NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+ //   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Coin"];
+    
+  //  coinArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
 
-    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    //  NSLog(@"RESULT coinArray from COINS: %@", coinArray);
+    
+    
+ //Self if we are in the model class
+ 
+
+ 
+    
+    
+    
+  /*  NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Coin"];
     
     NSError* error = nil;
     NSArray *results = [managedObjectContext executeFetchRequest:fetchRequest
                                                            error:&error];
     
-    NSLog(@"RESULT: %@", results);
+  
+    
+    
     
     coinArray = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    
-
+ */
+ //   NSString *valueToSave = @"https://api.coinmarketcap.com/v1/ticker/";
+ //   [self getTheCoins:valueToSave];
+ 
     NSString *valueToSave = @"https://api.coinmarketcap.com/v1/ticker/";
     [self getTheCoins:valueToSave];
-    
-  //  [self.tableView reloadData];
+
+     searchEnabled = NO;
+   [SVProgressHUD dismiss];
+   [self.tableView reloadData];
  //   NSLog(@"Company Array for prices:%@", coinArray);
   
 }
@@ -77,20 +117,21 @@
 
 - (IBAction)update:(id)sender {
     
-  //
     
-   // [newDevice setValue:self.company.text forKey:@"companyname"];
+ 
 
-NSError *error = nil;
-// Save the object to persistent store
-if (![context save:&error]) {
-    NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+
+ 
 }
-}
+
 
 
 -(void)getTheCoins:(NSString *)Str
 {
+  
+
+    
+//    NSManagedObjectContext *newcoins = [newDevice valueForKey:@"coinarray"];
     
     NSURL *url = [NSURL URLWithString:Str];
     
@@ -102,43 +143,123 @@ if (![context save:&error]) {
                                               error:&error];
     if( text )
     {
+        
      NSLog(@"Coins dict:%@", coins);
   
      NSArray*keys=[coins valueForKey:@"symbol"];
 NSArray*keys2=[coins valueForKey:@"name"];
         
+        
     NSLog(@"Coins allkeys:%@", keys2);
         coinArray = [[NSMutableArray alloc] init];
         coinSymbolArray = [[NSMutableArray alloc] init];
   coinNameArray = [[NSMutableArray alloc] init];
+    
+       
+        
         
         for (NSString *key in keys) {
             
             NSDictionary *dic = @{ @"symbol":key};
             
+           /*    NSManagedObject *newDevice = [NSEntityDescription insertNewObjectForEntityForName:@"Coin" inManagedObjectContext:context];
+            [newDevice setValue:dic[@"symbol"] forKey:@"symbol"];
+            
+        
+            NSString *urlReceived = [NSString stringWithFormat:@"https://www.cryptocompare.com/api/data/coinlist/"];
+            
+            NSURL *url = [NSURL URLWithString:urlReceived];
+            
+            NSError* error = nil;
+            NSString* text = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:&error];
+            NSData *myData = [text dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *BTCUSD = [NSJSONSerialization JSONObjectWithData:myData
+                                                                   options:NSJSONReadingAllowFragments
+                                                                     error:&error];
+            
+            
+            NSLog(@"BTCUSD: %@",[BTCUSD allKeys]);
+            
+         //   NSArray *temp2 = [BTCUSD valueForKey:@"Data"][[coinArray valueForKey:@"symbol"] ];
+            
+            
+          //  NSLog(@"Array: %@", temp2);
+        //    NSLog(@"BTCUSD: %@%@", [BTCUSD valueForKey:@"BaseLinkUrl"],[BTCUSD valueForKey:@"Data"][[coinArray valueForKey:@"symbol"][@"ImageUrl"]];
+            
+            _coinImageString = [NSString stringWithFormat:@"%@%@", [BTCUSD valueForKey:@"BaseLinkUrl"],[BTCUSD valueForKey:@"Data"][[coinArray valueForKey:@"symbol"]][@"ImageUrl"]];
+            
+            NSLog(@"Image String: %@", _coinImageString);
+            
+            
+            _coinImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_coinImageString]]];
+            
+            
+            NSData *imageData = UIImagePNGRepresentation(_coinImage.image);
+            
+            
+            [newDevice setValue:imageData forKey:@"image"];
+*/
+            
+            
+            
+            
+            
         [coinArray addObject:dic];
             
-            NSDictionary *dict = @{ @"coinname":key};
+      //
             
+           NSDictionary *dict = @{ @"coinname":key};
+         /*    NSManagedObject *newDeviceCN = [NSEntityDescription insertNewObjectForEntityForName:@"Coin" inManagedObjectContext:context];
+            [newDeviceCN setValue:dict[@"coinname"] forKey:@"coinname"];
+          */
             [coinSymbolArray addObject:dict];
+           //
          }
         
          for (NSString *key2 in keys2) {
-            NSDictionary *dict2 = @{ @"name":key2};
+   NSDictionary *dict2 = @{ @"name":key2};
             
-            [coinNameArray addObject:dict2];
+       [coinNameArray addObject:dict2];
          }
       
+    
 
     }
     else
     {
         NSLog(@"Error = %@", error);
     }
-    NSLog(@"CoinNameArray: %@", coinNameArray);
-
     
   
+
+    
+    NSLog(@"CoinArray: %@", coinArray);
+    NSLog(@"CoinNameArray: %@", coinNameArray);
+    NSLog(@"CoinSymbolArray: %@", coinSymbolArray);
+  //  NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:[coinNameArray valueForKey:@"name"]];
+  //  [newDevice setValue:arrayData forKey:@"coinarray"];
+  //  [self managedObjectContext];
+  
+  /*  NSManagedObject *newData;
+    for (int i = 0; i < coinArray.count; i++){
+       // newData = [NSEntityDescription insertNewObjectForEntityForName:@"Coin" inManagedObjectContext:context];
+        [newDevice setValue:[coinArray[i] valueForKey:@"symbol"] forKey:@"coinname"];
+        // [newData setValue:array2[i] forKey:@"sub-entities"];
+    }
+  
+    
+  //  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:coinArray];
+  //  [newDevice setValue:data forKey:@"coinarray"];
+ 
+    
+  //  NSError *error = nil;
+    // Save the object to persistent store
+    if (![context save:&error]) {
+        NSLog(@"Can't Save array! %@ %@", error, [error localizedDescription]);
+    }else {
+        NSLog(@"Data array saved successfully ..%@", newDevice);
+    }
+      */
     
     
     /*
@@ -160,8 +281,9 @@ NSArray*keys2=[coins valueForKey:@"name"];
      
      */
     // Reload table data
+    [SVProgressHUD dismiss];
     [self.tableView reloadData];
-   
+ 
 }
 -(void)viewDidDisappear:(BOOL)animated{
     
@@ -179,13 +301,21 @@ NSArray*keys2=[coins valueForKey:@"name"];
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
+//#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return coinArray.count;
+//#warning Incomplete implementation, return the number of rows
+
+    
+    if (searchEnabled) {
+        return [self.searchResults count];
+    }
+    else{
+       return coinArray.count;
+    }
+   
     
 }
 
@@ -193,16 +323,35 @@ NSArray*keys2=[coins valueForKey:@"name"];
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    // Configure the cell...
-    
-    // Configure the cell...
     NSManagedObject *device = [coinArray objectAtIndex:indexPath.row];
-     NSManagedObject *device2 = [coinNameArray objectAtIndex:indexPath.row];
+    NSManagedObject *device2 = [coinNameArray objectAtIndex:indexPath.row];
     
-    [cell.textLabel setText:[NSString stringWithFormat:@"%@",[device valueForKey:@"symbol"]]];
-   
-    [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@",[device2 valueForKey:@"name"]]];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+    }
+    if (searchEnabled) {
+        NSManagedObject *device3 = [self.searchResults objectAtIndex:indexPath.row];
+    
+         [cell.textLabel setText:[NSString stringWithFormat:@"%@",[device3 valueForKey:@"symbol"]]];
+      //    [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@",[device2 valueForKey:@"name"]]];
+        
+    }
+    else{
+     
+        [cell.textLabel setText:[NSString stringWithFormat:@"%@",[device valueForKey:@"symbol"]]];
+        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@",[device2 valueForKey:@"name"]]];
+        
+    }
+    
+    
+    // Configure the cell...
+    
 
+     
+   
+   
+ 
+/*
    NSString *urlReceived = [NSString stringWithFormat:@"https://www.cryptocompare.com/api/data/coinlist/"];
     
     NSURL *url = [NSURL URLWithString:urlReceived];
@@ -242,7 +391,7 @@ NSArray*keys2=[coins valueForKey:@"name"];
     cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
-
+*/
     
     return cell;
 }
@@ -289,8 +438,8 @@ NSArray*keys2=[coins valueForKey:@"name"];
     if ([[segue identifier] isEqualToString:@"addSymbol"]) {
         
      //   NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+         [SVProgressHUD show];
        
-        
        NSManagedObject *selectedDevice = [coinSymbolArray objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
         
       //  AddTransactionTVC *destinationViewController = (AddTransactionTVC *)segue.destinationViewController;
@@ -316,4 +465,47 @@ NSArray*keys2=[coins valueForKey:@"name"];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    NSString *searchString = searchController.searchBar.text;
+    
+    NSPredicate *resultPredicate = [NSPredicate
+                                    predicateWithFormat:@"symbol CONTAINS[c] %@",
+                                    searchString];
+  
+  
+    _searchResults = [coinArray filteredArrayUsingPredicate:resultPredicate];
+    
+    NSLog(@"Search Results: %@", _searchResults);
+
+    [self.tableView reloadData];
+}
+
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+    searchEnabled = YES;
+ //  [self updateSearchResultsForSearchController:];
+}
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+    [searchBar setText:@""];
+    searchEnabled = NO;
+    [self.tableView reloadData];
+    
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    if (searchBar.text.length == 0) {
+        searchEnabled = NO;
+        [self.tableView reloadData];
+    }
+    else {
+        searchEnabled = YES;
+      //  [self filterContentForSearchText:searchBar.text];
+    }
+}
 @end

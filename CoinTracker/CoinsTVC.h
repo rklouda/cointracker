@@ -19,10 +19,10 @@
     float totalPercentGain;
     NSInteger AmountTV;
     NSInteger AmountTG;
-    float totalMarket, totalGainRK, totalCostRK;
+    float totalMarket, totalGainRK, totalCostRK, totalHoldingsRK;
   //  UIBarButtonItem *addButton;
 }
-@property (weak, nonatomic) IBOutlet NSString *coin, *coinImageString;
+@property (weak, nonatomic) IBOutlet NSString *coin, *coinImageString, *type;
 @property (weak, nonatomic) IBOutlet UILabel *ETHLabel;
 @property (weak, nonatomic) IBOutlet UILabel *BTCLabel;
 @property (strong) NSMutableArray *companyarray, *companyarrayfull;
